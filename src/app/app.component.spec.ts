@@ -29,7 +29,15 @@ describe('AppComponent', () => {
     fixture.detectChanges();
 
     expect(compiled.querySelector('#recipe-form')).toBeTruthy();
-  })
+  });
+
+  it('displays an add-recipe button when the form is hidden, and hidden when the form is shown', () => {
+    const compiled = fixture.debugElement.nativeElement;
+    comp.isRecipeFormDisplayed = true;
+    fixture.detectChanges();
+
+    expect(compiled.querySelector('#add-recipe')).toBeNull();
+  });
 
   it('invoking toggleAddRecipeForm() once causes isRecipeFormDisplayed state to be true', () => {
     comp.toggleAddRecipeForm();
@@ -48,7 +56,7 @@ describe('AppComponent', () => {
     compiled.querySelector('#add-recipe').click();
 
     expect(comp.toggleAddRecipeForm).toHaveBeenCalledTimes(1);
-  })
+  });
 
   it('displays a recipe list item when there is one in state', () => {
     comp.recipeList = [
@@ -62,7 +70,7 @@ describe('AppComponent', () => {
     const recipeList = compiled.querySelector('#recipe-list');
 
     expect(recipeList.innerHTML).toContain('Tofu Scramble Tacos');
-  })
+  });
 
   it('submitting the form calls addRecipeToRecipeList', () => {
     comp.isRecipeFormDisplayed = true;
@@ -103,6 +111,6 @@ describe('AppComponent', () => {
 
     expect(comp.newRecipeForm.controls['newRecipeName'].value).toEqual(testName);
     expect(comp.newRecipeForm.controls['newRecipeInstructions'].value).toEqual(testInstructions);
-  })
+  });
 
 });
